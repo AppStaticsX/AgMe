@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SigninActivity">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.9"
+        android:contentDescription="@string/contentDescription"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_vector" />
+
+    <RelativeLayout
+        android:id="@+id/main"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".SigninActivity">
+
+    <ImageView
+        android:id="@+id/logo_img"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:transitionName="imgShared"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="20dp"
+        android:layout_centerInParent="false"
+        android:layout_marginHorizontal="60dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/my_logo"
+        tools:ignore="ImageContrastCheck" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo_img"
+        android:layout_marginHorizontal="30dp"
+        android:id="@+id/signUp_layout"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginTV"
+            android:text="Create Account"
+            android:layout_marginHorizontal="30dp"
+            android:fontFamily="@font/avenirnextltpro_bold"
+            android:textStyle="bold"
+            android:padding="0dp"
+            android:textSize="28sp"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_description"
+            android:layout_marginHorizontal="30dp"
+            android:text="Create your Account &amp; keep connected"
+            android:fontFamily="@font/poppins_regular"
+            android:textStyle="bold"
+            android:textColor="@color/primary_color"
+            android:textSize="14sp"
+            android:padding="0dp"
+            android:gravity="center_vertical"
+            tools:ignore="HardcodedText" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginHorizontal="30dp"
+            android:id="@+id/sign_in_layout"
+            android:layout_below="@+id/login_description"
+            android:orientation="vertical"
+            tools:ignore="ObsoleteLayoutParam">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="@string/profession"
+                android:textAllCaps="true"
+                android:textSize="15sp"
+                android:fontFamily="@font/avenirnextltpro_bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/jobInput_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:prefixTextAppearance="@font/avenirnextltpro_bold"
+                android:theme="@style/textInputTheme"
+                android:layout_marginTop="3dp"
+                app:startIconDrawable="@drawable/personalcard_svgrepo_com"
+                app:endIconMode="dropdown_menu"
+                app:endIconDrawable="@drawable/arrow_drop_down_circle"
+                android:background="@drawable/text_input_background"
+                android:textColorHint="@color/primary_color">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/jobInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/profession_NEW"
+                    android:paddingStart="45dp"
+                    android:paddingVertical="13dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/textColor"
+                    android:inputType="none"
+                    android:focusable="false"
+                    tools:ignore="RtlSymmetry,VisualLintTextFieldSize" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="@string/username"
+                android:textAllCaps="true"
+                android:textSize="15sp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/avenirnextltpro_bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/userNameInput_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:prefixTextAppearance="@font/avenirnextltpro_bold"
+                android:theme="@style/textInputTheme"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/text_input_background"
+                android:textColorHint="@color/primary_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userNameInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:hint="@string/enter_username"
+                    android:paddingVertical="13dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:drawableStart="@drawable/profile_svgrepo_com"
+                    android:drawablePadding="5dp"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/textColor"
+                    tools:ignore="VisualLintTextFieldSize" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:text="@string/email_address"
+                android:textSize="15sp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/avenirnextltpro_bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/emailInput_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/textInputTheme"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/text_input_background"
+                android:textColorHint="@color/primary_color"
+                app:endIconMode="clear_text"
+                app:endIconDrawable="@drawable/close_circle_svgrepo_com"
+                app:endIconTint="@color/quantum_orange400">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/emailInput_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_your_email"
+                    android:paddingVertical="13dp"
+                    android:inputType="textEmailAddress"
+                    android:fontFamily="@font/poppins_regular"
+                    android:drawableStart="@drawable/sms_svgrepo_com"
+                    android:drawablePadding="5dp"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/textColor"
+                    tools:ignore="VisualLintTextFieldSize" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="@string/password"
+                android:textAllCaps="true"
+                android:textSize="15sp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/avenirnextltpro_bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordInput_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/textInputTheme"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/text_input_background"
+                android:textColorHint="@color/primary_color"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordInput_signup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/enter_your_password"
+                    android:paddingVertical="13dp"
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/poppins_regular"
+                    android:drawableStart="@drawable/lock_svgrepo_com"
+                    android:drawablePadding="5dp"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/textColor"
+                    tools:ignore="VisualLintTextFieldSize" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:gravity="center_vertical|start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:visibility="invisible"
+                    android:textSize="12sp"
+                    android:textAllCaps="true"
+                    android:fontFamily="@font/avenirnextltpro_bold"
+                    android:text="@string/password_strength"
+                    android:id="@+id/frontTextPWS"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textStart"
+                    android:visibility="invisible"
+                    android:textAllCaps="true"
+                    android:text="@string/weak"
+                    android:id="@+id/pw_strong_status"
+                    android:textSize="12sp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/avenirnextltpro_bold"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:visibility="gone"
+                android:text="@string/confirm_password"
+                android:textAllCaps="true"
+                android:textSize="15sp"
+                android:layout_marginTop="25dp"
+                android:fontFamily="@font/avenirnextltpro_bold"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirmPasswordInput_layout"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"
+                android:theme="@style/textInputTheme"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/text_input_background"
+                android:textColorHint="@color/primary_color"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmPasswordInput"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/confirm_your_password"
+                    android:inputType="textPassword"
+                    android:paddingVertical="13dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:drawableStart="@drawable/lock_svgrepo_com"
+                    android:drawablePadding="5dp"
+                    android:maxLines="1"
+                    android:minHeight="48dp"
+                    android:textColor="@color/textColor"
+                    tools:ignore="VisualLintTextFieldSize" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/sign_up_btn"
+                    android:layout_width="match_parent"
+                    android:tooltipText="ENCRYPT TEXT"
+                    android:layout_height="60dp"
+                    app:rippleColor="@color/text_color_grey"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="25dp"
+                    android:text="@string/sign_up"
+                    android:fontFamily="@font/josefinsans_bold"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:backgroundTint="@color/black"
+                    app:cornerRadius="8dp"
+                    tools:ignore="VisualLintButtonSize" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="Already have an Account?"
+                    android:textSize="14sp"
+                    android:textColor="@color/primary_color"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/poppins_medium"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:id="@+id/signInTV"
+                    android:text="Sign in"
+                    android:textSize="14sp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/poppins_medium"
+                    tools:ignore="HardcodedText" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
+</FrameLayout>

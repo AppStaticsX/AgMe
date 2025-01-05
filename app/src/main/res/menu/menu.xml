@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item android:id="@+id/home"
+            android:icon="@drawable/google_svgrepo_com"
+            android:checked="true"
+            android:title="@string/home"/>
+
+        <item android:id="@+id/game"
+            android:icon="@drawable/google_svgrepo_com"
+            android:title="@string/home"/>
+
+        <item android:id="@+id/news"
+            android:icon="@drawable/google_svgrepo_com"
+            android:title="@string/home"/>
+
+        <item android:id="@+id/profile"
+            android:icon="@drawable/google_svgrepo_com"
+            android:title="@string/home"/>
+
+        <item android:id="@+id/settings"
+            android:icon="@drawable/google_svgrepo_com"
+            android:title="@string/home"/>
+
+        <item android:id="@+id/about"
+            android:icon="@drawable/google_svgrepo_com"
+            android:title="@string/home"/>
+
+        <item android:id="@+id/whatsnew"
+            android:icon="@drawable/google_svgrepo_com"
+            android:title="@string/home"/>
+
+        <item android:id="@+id/logout"
+            android:icon="@drawable/google_svgrepo_com"
+            android:title="@string/home"/>
+
+    </group>
+
+</menu>

@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@android:color/transparent"
+    android:layout_marginBottom="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddCropFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="60dp"
+            android:layout_marginHorizontal="30dp"
+            android:id="@+id/manageCropLayout"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"
+                    app:lottie_rawRes="@raw/plant_anim"
+                    tools:ignore="MissingConstraints" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/manage_crop"
+                        android:textAlignment="center"
+                        android:layout_marginStart="3dp"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/avenirnextltpro_bold"
+                        android:textSize="26sp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="3dp"
+                        android:textAlignment="center"
+                        android:text="@string/manage_your_crops"
+                        android:textColor="@color/text_color_grey"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/manageCropLayout"
+            android:layout_marginTop="20dp"
+            android:scrollbars="none"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="3dp"
+                    android:visibility="visible"
+                    android:id="@+id/mainCard"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginTop="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="3dp"
+                            android:visibility="visible"
+                            android:id="@+id/addCropCard"
+                            app:cardBackgroundColor="@color/white"
+                            app:strokeWidth="0dp"
+                            android:layout_marginHorizontal="30dp"
+                            android:layout_marginTop="20dp"
+                            android:layout_marginBottom="20dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:layout_width="15dp"
+                                    android:layout_height="match_parent"
+                                    app:cardElevation="3dp"
+                                    android:visibility="visible"
+                                    android:theme="@style/ShapeAppearanceOverlay_card_custom_corners"
+                                    app:cardBackgroundColor="@color/mat_green"
+                                    app:strokeWidth="0dp">
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:contentDescription="@string/contentDescription"
+                                    android:src="@drawable/agriculture_svgrepo_com"
+                                    android:layout_margin="10dp"/>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="5dp"
+                                    android:gravity="center_vertical"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/add_new_crop"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginBottom="0dp"
+                                        android:fontFamily="@font/avenirnextltpro_bold"
+                                        android:textSize="18sp"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/tap_to_add_details"
+                                        android:id="@+id/add_crop_subtitle"
+                                        android:fontFamily="@font/avenirnextltpro_demi"
+                                        android:textColor="@color/text_color_grey"
+                                        android:layout_marginBottom="10dp"
+                                        android:textSize="12sp"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/expandable_addCrop_card"
+                            android:visibility="visible"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="SELECT CROP"
+                                android:fontFamily="@font/avenirnextltpro_bold"
+                                android:textAllCaps="true"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginTop="25dp"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"/>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/cropNameInput_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/textInputTheme"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginHorizontal="30dp"
+                                android:background="@drawable/text_input_background"
+                                android:textColorHint="@color/primary_color"
+                                app:endIconMode="dropdown_menu"
+                                app:endIconDrawable="@drawable/arrow_drop_down_circle"
+                                app:endIconTint="@color/quantum_orange400">
+
+                                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                    android:id="@+id/cropNameInput"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingHorizontal="15dp"
+                                    android:hint="@string/select_crop"
+                                    android:paddingVertical="13dp"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:textSize="15sp"
+                                    android:drawableStart="@drawable/plant_svgrepo_com"
+                                    android:maxLines="1"
+                                    android:minHeight="48dp"
+                                    android:textColor="@color/textColor"
+                                    tools:ignore="VisualLintTextFieldSize" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="FIELD SIZE (PERCH)"
+                                android:fontFamily="@font/avenirnextltpro_bold"
+                                android:textAllCaps="true"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginTop="25dp"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"/>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/fieldSizeInput_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/textInputTheme"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginHorizontal="30dp"
+                                android:background="@drawable/text_input_background"
+                                android:textColorHint="@color/primary_color"
+                                app:endIconMode="clear_text"
+                                app:endIconDrawable="@drawable/close_circle_svgrepo_com"
+                                app:endIconTint="@color/quantum_orange400">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/fieldSizeInput"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/add_feild_size"
+                                    android:paddingVertical="13dp"
+                                    android:inputType="numberDecimal"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:textSize="15sp"
+                                    android:drawableStart="@drawable/crop_svgrepo_com"
+                                    android:drawablePadding="5dp"
+                                    android:maxLines="1"
+                                    android:minHeight="48dp"
+                                    android:textColor="@color/textColor"
+                                    tools:ignore="VisualLintTextFieldSize" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/date_of_plantation"
+                                android:fontFamily="@font/avenirnextltpro_bold"
+                                android:textAllCaps="true"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginTop="25dp"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"/>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_vertical"
+                                android:layout_marginHorizontal="30dp"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/dateInput_layout"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:theme="@style/textInputTheme"
+                                    android:layout_marginTop="3dp"
+                                    android:layout_marginEnd="10dp"
+                                    android:background="@drawable/text_input_background"
+                                    android:textColorHint="@color/primary_color"
+                                    app:endIconMode="clear_text"
+                                    app:endIconDrawable="@drawable/close_circle_svgrepo_com"
+                                    app:endIconTint="@color/quantum_orange400">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/dateInput"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:hint="@string/plantation_date"
+                                        android:paddingVertical="13dp"
+                                        android:inputType="date"
+                                        android:fontFamily="@font/poppins_regular"
+                                        android:textSize="15sp"
+                                        android:drawableStart="@drawable/date_svgrepo_com"
+                                        android:drawablePadding="5dp"
+                                        android:maxLines="1"
+                                        android:minHeight="48dp"
+                                        android:textColor="@color/textColor"
+                                        tools:ignore="VisualLintTextFieldSize" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <androidx.appcompat.widget.AppCompatImageButton
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/white"
+                                    android:id="@+id/datePickerBtn"
+                                    android:layout_marginTop="2dp"
+                                    android:layout_weight="0.2"
+                                    android:src="@drawable/date_input_svgrepo_com"/>
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/district"
+                                android:fontFamily="@font/avenirnextltpro_bold"
+                                android:textAllCaps="true"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginTop="25dp"
+                                android:textColor="@color/black"
+                                android:textSize="13sp"/>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/districtInput_layout"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:theme="@style/textInputTheme"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginHorizontal="30dp"
+                                android:background="@drawable/text_input_background"
+                                android:textColorHint="@color/primary_color"
+                                app:endIconMode="clear_text"
+                                app:endIconDrawable="@drawable/close_circle_svgrepo_com"
+                                app:endIconTint="@color/quantum_orange400">
+
+                                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                                    android:id="@+id/disrictInput"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="@string/add_district"
+                                    android:paddingVertical="13dp"
+                                    android:paddingHorizontal="15dp"
+                                    android:inputType="text"
+                                    android:fontFamily="@font/poppins_regular"
+                                    android:textSize="15sp"
+                                    android:drawableStart="@drawable/landscape_24dp_000000_fill0_wght400_grad_25_opsz24"
+                                    android:drawablePadding="5dp"
+                                    android:maxLines="1"
+                                    android:minHeight="48dp"
+                                    android:textColor="@color/textColor"
+                                    tools:ignore="VisualLintTextFieldSize" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/save_crop_details_btn"
+                                android:layout_width="match_parent"
+                                android:layout_height="60dp"
+                                app:rippleColor="@color/text_color_grey"
+                                android:layout_marginBottom="20dp"
+                                android:layout_marginHorizontal="30dp"
+                                android:layout_marginTop="20dp"
+                                android:text="@string/add_crop"
+                                android:fontFamily="@font/josefinsans_bold"
+                                android:textSize="18sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/white"
+                                android:backgroundTint="@color/mat_green"
+                                app:cornerRadius="8dp"
+                                tools:ignore="VisualLintButtonSize" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardElevation="3dp"
+                    android:visibility="visible"
+                    android:id="@+id/viewCropCard"
+                    app:cardBackgroundColor="@color/white"
+                    app:strokeWidth="0dp"
+                    android:layout_marginHorizontal="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:id="@+id/viewCropHeader"
+                        android:layout_marginVertical="15dp"
+                        android:layout_marginHorizontal="30dp"
+                        android:background="@drawable/rounded_corner_background"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/headerTextView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="1dp"
+                            android:fontFamily="@font/avenirnextltpro_bold"
+                            android:text="@string/tap_to_view_your_crops"
+                            android:textAllCaps="true"/>
+
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
+                            app:lottie_autoPlay="true"
+                            app:lottie_loop="true"
+                            app:lottie_rawRes="@raw/arrow_anim"
+                            tools:ignore="MissingConstraints" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/collapsibleLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="40dp">
+
+                            <!-- Recycle View -->
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:layout_marginHorizontal="30dp"/>
+                        </RelativeLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</FrameLayout>

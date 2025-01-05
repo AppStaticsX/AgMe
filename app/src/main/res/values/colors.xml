@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="my_light_primary">#8bc34a</color>
+    <color name="red">#FF0000</color>
+    <color name="quantum_orange400">@color/black</color>
+    <color name="al_exo_white_opacity_70">#6b6b6b</color>
+    <color name="textColor">#000000</color>
+    <color name="background_color">#ffffff</color>
+    <color name="card_background_color">#ffffff</color>
+    <color name="bottom_footer_bg">#d9fdd3</color>
+    <color name="text_color_grey">#ACACAC</color>
+    <color name="default_text_color">#000000</color>
+    <color name="drawable_tint">#000000</color>
+    <color name="btn_bg">#556b6b6b</color>
+    <color name="primary_color">#6b6b6b</color>
+    <color name="status_bar">#6b6b6b</color>
+    <color name="splash_statusbar_color">@color/white</color>
+
+    <!-- Colors for pie-chart -->
+    <color name="mat_red">#C62828</color>
+    <color name="mat_yellow">#F9A825</color>
+    <color name="mat_orange">#EF6C00</color>
+    <color name="mat_green">#2E7D32</color>
+    <color name="mat_blue">#0277BD</color>
+    <color name="mat_indigo">#4527A0</color>
+
+</resources>

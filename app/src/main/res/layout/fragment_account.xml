@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AccountFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:padding="10dp"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:gravity="center_horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                app:civ_border_width="0dp"
+                android:layout_centerInParent="true"
+                android:id="@+id/ProfPic"
+                android:src="@drawable/nomad_svgrepo_com"
+                app:civ_border_color="#FF000000"
+                android:layout_width="300dp"
+                android:layout_height="300dp"/>
+
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changeProfPic_btn"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="-11dp"
+                android:layout_marginBottom="4dp"
+                android:backgroundTint="@android:color/transparent"
+                android:src="@drawable/camera_svgrepo_com" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:orientation="vertical"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:id="@+id/usernameTV"
+                android:text="@string/user_default_email"
+                android:layout_marginTop="10dp"
+                android:padding="0dp"
+                android:textSize="22sp"
+                android:fontFamily="@font/avenirnextltpro_bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:id="@+id/userEmailTV"
+                android:text="@string/user_default_email"
+                android:padding="0dp"
+                android:textSize="15sp"
+                android:textColor="@color/primary_color"
+                android:fontFamily="@font/avenirnextltpro_regular"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logout_btn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="#1BFFFFFF"
+                android:fontFamily="@font/lato_bold"
+                android:paddingHorizontal="30dp"
+                android:text="@string/logout"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:iconGravity="textStart"
+                app:rippleColor="#526B6B6B"
+                app:strokeColor="@color/primary_color"
+                app:strokeWidth="1dp"
+                tools:ignore="VisualLintButtonSize" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteAcc_btn"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="5dp"
+                android:backgroundTint="#1BFFFFFF"
+                android:fontFamily="@font/lato_bold"
+                android:paddingHorizontal="30dp"
+                android:text="@string/delete"
+                android:textAllCaps="true"
+                android:textColor="@color/mat_red"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="8dp"
+                app:iconGravity="textStart"
+                app:rippleColor="#526B6B6B"
+                app:strokeColor="@color/primary_color"
+                app:strokeWidth="1dp"
+                tools:ignore="VisualLintButtonSize" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>
