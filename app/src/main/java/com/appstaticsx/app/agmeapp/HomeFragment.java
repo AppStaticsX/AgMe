@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
     private LottieAnimationView loadingAnimation; // Lottie animation view
 
     private static final String TAG = "HomeFragment";
-    private static final String API_KEY = "077fca0117280391cb4c864e32d5ab81"; // Replace with your OpenWeatherMap API key
+    private static final String API_KEY = ""; // Replace with your OpenWeatherMap API key
     private static final double DEFAULT_LATITUDE = 6.8449; // Homagama latitude
     private static final double DEFAULT_LONGITUDE = 80.0029; // Homagama longitude
 
