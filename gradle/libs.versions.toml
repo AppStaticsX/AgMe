@@ -1,0 +1,45 @@
+[versions]
+agp = "8.7.3"
+blurview = "version-2.0.5"
+circleimageview = "3.1.0"
+fadingTextView = "3.3"
+firebaseBom = "33.7.0"
+glide = "4.15.1"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+appcompat = "1.7.0"
+lottie = "5.2.0"
+material = "1.12.0"
+activity = "1.9.3"
+constraintlayout = "2.1.4"
+mpandroidchart = "v3.1.0"
+playServicesAuth = "21.3.0"
+playServicesLocation = "21.3.0"
+taptargetview = "1.14.0"
+
+[libraries]
+blurview = { module = "com.github.Dimezis:BlurView", version.ref = "blurview" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
+fading-text-view = { module = "com.github.rosenpin:fading-text-view", version.ref = "fadingTextView" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-auth = { module = "com.google.firebase:firebase-auth" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
+firebase-database = { module = "com.google.firebase:firebase-database" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+mpandroidchart = { module = "com.github.PhilJay:MPAndroidChart", version.ref = "mpandroidchart" }
+play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+taptargetview = { module = "com.getkeepsafe.taptargetview:taptargetview", version.ref = "taptargetview" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+
