@@ -4,9 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,14 +59,14 @@ public class SignupActivity extends AppCompatActivity {
 
         // Initialize elements
         TextView signInTv = findViewById(R.id.signInTV);
-        TextView passwordStrengthStatus = findViewById(R.id.pw_strong_status);
-        TextView frontTextPWS = findViewById(R.id.frontTextPWS);
         TextInputEditText passwordInput = findViewById(R.id.passwordInput_signup);
         TextInputEditText emailInput = findViewById(R.id.emailInput_signup);
         MaterialButton signUpBtn = findViewById(R.id.sign_up_btn);
         TextInputLayout jobInput_layout = findViewById(R.id.jobInput_layout);
 
         MaterialAutoCompleteTextView jobInput = findViewById(R.id.jobInput);
+
+        PasswordStrengthChecker.setPasswordStrengthWatcher(passwordInput, this);
 
         List<DropdownItem> items = Arrays.asList(
                 new DropdownItem("FARMER", R.drawable.farmer_human_svgrepo_com),
@@ -113,40 +110,6 @@ public class SignupActivity extends AppCompatActivity {
             finish();
         });
 
-
-        // Check password strong
-        passwordInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @SuppressLint("SetTextI18n")
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String password = s.toString();
-                String strength = getPasswordStrength(password);
-                passwordStrengthStatus.setVisibility(View.VISIBLE);
-                frontTextPWS.setVisibility(View.VISIBLE);
-
-                if (strength.equals("Weak")) {
-                    passwordStrengthStatus.setTextColor(getResources().getColor(R.color.mat_red));
-                    passwordStrengthStatus.setText(strength);
-
-                } else if (strength.equals("Medium")) {
-                    passwordStrengthStatus.setTextColor(getResources().getColor(R.color.mat_orange));
-                    passwordStrengthStatus.setText(strength);
-
-                } else {
-                    passwordStrengthStatus.setTextColor(getResources().getColor(R.color.mat_green));
-                    passwordStrengthStatus.setText(strength);
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-
-        });
 
         // Handle sign-up button
         signUpBtn.setOnClickListener(view -> {
@@ -259,40 +222,7 @@ public class SignupActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
     }
 
-    private String getPasswordStrength(String password) {
-        int score = 0;
 
-        // Check password length
-        if (password.length() >= 8) {
-            score++;
-        }
-        // Check for uppercase letters
-        if (password.matches(".*[A-Z].*")) {
-            score++;
-        }
-        // Check for lowercase letters
-        if (password.matches(".*[a-z].*")) {
-            score++;
-        }
-        // Check for digits
-        if (password.matches(".*\\d.*")) {
-            score++;
-        }
-        // Check for special characters
-        if (password.matches(".*[@#$%^&+=!].*")) {
-            score++;
-        }
-
-        // Evaluate strength
-        if (score <= 1) {
-            return "Weak";
-        } else if (score == 2 || score == 3) {
-            return "Medium";
-        } else {
-            return "Strong";
-        }
-
-    }
 
     // Handle back button
         public void onBackPressed() {

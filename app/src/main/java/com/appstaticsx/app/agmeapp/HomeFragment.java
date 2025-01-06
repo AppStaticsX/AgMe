@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,46 +38,47 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
+    // Constants for SharedPreferences and Firebase keys
     private static final String PREFS_NAME = "UserPreferences";
     private static final String KEY_USER_EMAIL = "userEmail";
     private static final String KEY_USER_NAME = "userName";
 
-    private CardAdapterHomeFragment cardAdapter;
-    private final List<CardItem> cardItemList = new ArrayList<>();
-
-    private TextView textView;
-    private LottieAnimationView loadingAnimation; // Lottie animation view
-
+    // Constants for Weather API
     private static final String TAG = "HomeFragment";
-    private static final String API_KEY = ""; // Replace with your OpenWeatherMap API key
+    private static final String API_KEY = "206a662b2d424dc607a07b82783d6809"; // Replace with your OpenWeatherMap API key
     private static final double DEFAULT_LATITUDE = 6.8449; // Homagama latitude
     private static final double DEFAULT_LONGITUDE = 80.0029; // Homagama longitude
 
+    // UI Elements and adapters
+    private CardAdapterHomeFragment cardAdapter;
+    private final List<CardItem> cardItemList = new ArrayList<>();
+    private TextView textView;
+    private LottieAnimationView loadingAnimation;
+
     @SuppressLint("SetTextI18n")
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         // Disable night mode
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        // Find views
+        // Find and initialize views
         textView = view.findViewById(R.id.sloganTV);
         RecyclerView recyclerView = view.findViewById(R.id.recyclerViewCrops);
-        loadingAnimation = view.findViewById(R.id.loadingAnimation); // Initialize Lottie view
+        loadingAnimation = view.findViewById(R.id.loadingAnimation);
 
         // Setup RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
         cardAdapter = new CardAdapterHomeFragment(cardItemList);
         recyclerView.setAdapter(cardAdapter);
 
-        // Retrieve saved user data
+        // Retrieve user data from SharedPreferences
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String savedEmail = sharedPreferences.getString(KEY_USER_EMAIL, null);
         String userNameFromDB = sharedPreferences.getString(KEY_USER_NAME, null);
 
-        // Set greeting message
+        // Display greeting based on user data
         if (savedEmail != null) {
             findAccountInFirebase(savedEmail);
             int atIndex = savedEmail.indexOf("@");
@@ -94,16 +94,16 @@ public class HomeFragment extends Fragment {
             textView.setText("User email not found!");
         }
 
-        // Load crops data
+        // Load crops data and fetch weather
         checkAndLoadCropsFromFirebase();
-
-        // Fetch weather for current location
         fetchCurrentLocationWeather();
 
         return view;
     }
 
-    // Method to find account in Firebase
+    /**
+     * Finds the user account in Firebase using the provided email.
+     */
     private void findAccountInFirebase(String email) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
         Query query = reference.orderByChild("email").equalTo(email);
@@ -134,7 +134,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // Method to check crops and load if available
+    /**
+     * Checks for crops data in Firebase and loads it if available.
+     */
     private void checkAndLoadCropsFromFirebase() {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String userEmail = sharedPreferences.getString(KEY_USER_EMAIL, null);
@@ -145,11 +147,7 @@ public class HomeFragment extends Fragment {
         }
 
         String sanitizedEmail = userEmail.replace(".", ",");
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(sanitizedEmail)
-                .child("crops");
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("users").child(sanitizedEmail).child("crops");
 
         // Show loading animation
         loadingAnimation.setVisibility(View.VISIBLE);
@@ -174,7 +172,9 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // Method to load crops from Firebase
+    /**
+     * Loads crops data from Firebase and updates the RecyclerView.
+     */
     private void loadCropsFromFirebase() {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String userEmail = sharedPreferences.getString(KEY_USER_EMAIL, null);
@@ -185,11 +185,7 @@ public class HomeFragment extends Fragment {
         }
 
         String sanitizedEmail = userEmail.replace(".", ",");
-
-        DatabaseReference cropsRef = FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(sanitizedEmail)
-                .child("crops");
+        DatabaseReference cropsRef = FirebaseDatabase.getInstance().getReference("users").child(sanitizedEmail).child("crops");
 
         cropsRef.addValueEventListener(new ValueEventListener() {
             @SuppressLint("NotifyDataSetChanged")
@@ -201,7 +197,7 @@ public class HomeFragment extends Fragment {
                     String name = cropSnapshot.child("name").getValue(String.class);
                     String fieldSizeStr = cropSnapshot.child("fieldSize").getValue(String.class);
                     String plantationDate = cropSnapshot.child("plantationDate").getValue(String.class);
-                    String harvestedDate = cropSnapshot.child("plantationDate").getValue(String.class);
+                    String harvestedDate = cropSnapshot.child("harvestedDate").getValue(String.class);
 
                     if (name != null && fieldSizeStr != null && plantationDate != null) {
                         cardItemList.add(new CardItem(name, fieldSizeStr, plantationDate, harvestedDate));
@@ -221,15 +217,21 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    /**
+     * Fetches current location weather using default latitude and longitude.
+     */
     private void fetchCurrentLocationWeather() {
-        // Directly use the default location (Homagama)
         getWeatherData();
     }
 
+    /**
+     * Fetches weather data from OpenWeatherMap API.
+     */
     private void getWeatherData() {
         new Thread(() -> {
             try {
-                @SuppressLint("DefaultLocale") String urlString = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s", HomeFragment.DEFAULT_LATITUDE, HomeFragment.DEFAULT_LONGITUDE, API_KEY);
+                @SuppressLint("DefaultLocale") String urlString = String.format("https://api.openweathermap.org/data/2.5/weather?lat=%f&lon=%f&appid=%s",
+                        DEFAULT_LATITUDE, DEFAULT_LONGITUDE, API_KEY);
                 URL url = new URL(urlString);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
@@ -250,52 +252,43 @@ public class HomeFragment extends Fragment {
         }).start();
     }
 
+    /**
+     * Parses weather data from the API response and updates the UI.
+     */
+    @SuppressLint("CheckResult")
     private void parseWeatherResponse(String response) {
         try {
             JSONObject jsonObject = new JSONObject(response);
             JSONObject main = jsonObject.getJSONObject("main");
             double temperature = main.getDouble("temp") - 273.15; // Convert from Kelvin to Celsius
-            double feelsLike = main.getDouble("feels_like") - 273.15; // Convert from Kelvin to Celsius
             double pressure = main.getDouble("pressure");
             double humidity = main.getDouble("humidity");
 
             JSONObject weather = jsonObject.getJSONArray("weather").getJSONObject(0);
-            String iconCode = weather.getString("icon"); // Get the weather icon code
-            String iconUrl = String.format("https://openweathermap.org/img/wn/01d@2x.png", iconCode);
-
-            // Debugging
-            Log.d(TAG, "Weather Icon Code: " + iconCode);
-            Log.d(TAG, "Weather Icon URL: " + iconUrl);
+            String iconCode = weather.getString("icon");
+            String iconUrl = String.format("https://openweathermap.org/img/wn/%s@2x.png", iconCode);
 
             requireActivity().runOnUiThread(() -> {
                 TextView temperatureView = requireView().findViewById(R.id.temperature);
-                TextView feelsLikeView = requireView().findViewById(R.id.feel_result);
                 TextView pressureView = requireView().findViewById(R.id.windResult);
                 TextView humidityView = requireView().findViewById(R.id.humidityResult);
-                ImageView weatherIconView = requireView().findViewById(R.id.weatherIconImageView);
 
                 @SuppressLint("DefaultLocale") String tempText = String.format("%.0f°C", temperature);
-                @SuppressLint("DefaultLocale") String feelsLikeText = String.format("%.1f°C", feelsLike);
                 @SuppressLint("DefaultLocale") String pressureText = String.format("%.0f hPa", pressure);
                 @SuppressLint("DefaultLocale") String humidityText = String.format("%.0f%%", humidity);
 
                 temperatureView.setText(tempText);
-                feelsLikeView.setText(feelsLikeText);
                 pressureView.setText(pressureText);
                 humidityView.setText(humidityText);
 
                 // Load weather icon
                 Glide.with(requireContext())
                         .load(iconUrl)
-                        .placeholder(R.drawable.cloudy_rainy_svgrepo_com) // Optional loading placeholder
-                        .error(R.drawable.cloudy_rainy_svgrepo_com) // Fallback if the image cannot be loaded
-                        .into(weatherIconView);
+                        .placeholder(R.drawable.cloudy_rainy_svgrepo_com)
+                        .error(R.drawable.cloudy_rainy_svgrepo_com);
             });
         } catch (Exception e) {
             Log.e(TAG, "Error parsing weather data: ", e);
         }
     }
-
-
-
 }

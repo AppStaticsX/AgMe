@@ -33,36 +33,37 @@ import java.util.Objects;
 
 public class SigninActivity extends AppCompatActivity {
 
-    MaterialButton google_sign_in_btn;
-    FirebaseAuth firebaseAuth;
-    FirebaseDatabase firebaseDatabase;
-    GoogleSignInOptions googleSignInOptions;
-    GoogleSignInClient googleSignInClient;
-    ImageView logo_img;
+    MaterialButton google_sign_in_btn; // Button for Google Sign-In
+    FirebaseAuth firebaseAuth; // Firebase authentication instance
+    FirebaseDatabase firebaseDatabase; // Firebase database instance
+    GoogleSignInOptions googleSignInOptions; // Google Sign-In options
+    GoogleSignInClient googleSignInClient; // Google Sign-In client
+    ImageView logo_img; // App logo image
 
-    TextInputEditText emailInput, passwordInput;
-    MaterialButton signIn_btn;
-    TextView redirectSignUp, resetPasswordTv;
+    TextInputEditText emailInput, passwordInput; // Email and password input fields
+    MaterialButton signIn_btn; // Button for email/password sign-in
+    TextView redirectSignUp, resetPasswordTv; // Links for sign-up and reset password
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth; // Firebase authentication
 
-    int RC_SIGN_IN = 20;
+    int RC_SIGN_IN = 20; // Request code for Google Sign-In
 
-    private boolean isBackPressedOnce = false;
-    private final Handler handler = new Handler();
-    private static final int DOUBLE_TAP_DELAY = 500;
+    private boolean isBackPressedOnce = false; // Track back button presses
+    private final Handler handler = new Handler(); // Handler for delayed actions
+    private static final int DOUBLE_TAP_DELAY = 500; // Delay for double-tap exit
 
-    private static final String PREFS_NAME = "UserPreferences";
-    private static final String KEY_IS_LOGGED_IN = "isLoggedIn";
+    private static final String PREFS_NAME = "UserPreferences"; // SharedPreferences file name
+    private static final String KEY_IS_LOGGED_IN = "isLoggedIn"; // Key for login status
 
-    String[] texts = {"Checking Data...", "Almost there...", "Please wait..."};
+    String[] texts = {"Checking Data...", "Almost there...", "Please wait..."}; // Loading messages
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Enable edge-to-edge UI
         setContentView(R.layout.activity_signin);
 
+        // Initialize UI elements
         emailInput = findViewById(R.id.emailInput);
         passwordInput = findViewById(R.id.passwordInput);
         signIn_btn = findViewById(R.id.sign_in_btn);
@@ -70,22 +71,19 @@ public class SigninActivity extends AppCompatActivity {
         resetPasswordTv = findViewById(R.id.resetPasswordTV);
         logo_img = findViewById(R.id.logo_img);
 
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO); // Disable night mode
 
-        mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance(); // Initialize FirebaseAuth
 
-        // Check device is connected to the internet
-        if (NetworkUtil.isInternetAvailable(this)) {
-
-        } else {
+        // Check for internet connectivity
+        if (!NetworkUtil.isInternetAvailable(this)) {
             CustomDialog customDialog = new CustomDialog(this);
             customDialog.setMessage(getResources().getString(R.string.no_network));
-            customDialog.setAnimation("no_network_anim.json"); // Name of the animation file in res/raw
+            customDialog.setAnimation("no_network_anim.json"); // No network animation
             customDialog.show();
         }
 
-
-        // Setting-up Firebase
+        // Initialize Firebase and Google Sign-In
         google_sign_in_btn = findViewById(R.id.google_sign_in_btn);
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -96,30 +94,26 @@ public class SigninActivity extends AppCompatActivity {
 
         googleSignInClient = GoogleSignIn.getClient(SigninActivity.this, googleSignInOptions);
 
-
-        // reset password textView handle
+        // Reset password textView click handler
         resetPasswordTv.setOnClickListener(view -> {
             Intent intent = new Intent(SigninActivity.this, ResetPasswordActivity.class);
             startActivity(intent);
-            finish();
+            finish(); // End the current activity
         });
 
-
-        // Sign-in button logic
+        // Google Sign-In button click handler
         google_sign_in_btn.setOnClickListener(view -> {
             if (NetworkUtil.isInternetAvailable(this)) {
-                signIn();
-
+                signIn(); // Start Google Sign-In process
             } else {
                 CustomDialog customDialog = new CustomDialog(this);
                 customDialog.setMessage(getResources().getString(R.string.no_network));
-                customDialog.setAnimation("no_network_anim.json"); // Name of the animation file in res/raw
+                customDialog.setAnimation("no_network_anim.json"); // No network animation
                 customDialog.show();
             }
         });
 
-
-        // Login button logic
+        // Email/password Sign-In button click handler
         signIn_btn.setOnClickListener(view -> {
             String userEmail = Objects.requireNonNull(emailInput.getText()).toString().trim();
             String userPassword = Objects.requireNonNull(passwordInput.getText()).toString().trim();
@@ -129,64 +123,55 @@ public class SigninActivity extends AppCompatActivity {
             processingcustomDialog.setAnimation("loading_anim.json");
             processingcustomDialog.show();
 
-                if (!validateEmail() | !validatePassword()) {
-                    processingcustomDialog.dismiss();
-                } else {
-                    if (NetworkUtil.isInternetAvailable(this)) {
-                        mAuth.signInWithEmailAndPassword(userEmail, userPassword)
-                                .addOnCompleteListener(this, task -> {
-                                    if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
-                                        FirebaseUser user = mAuth.getCurrentUser();
+            if (!validateEmail() | !validatePassword()) {
+                processingcustomDialog.dismiss();
+            } else {
+                if (NetworkUtil.isInternetAvailable(this)) {
+                    // Firebase Email/Password authentication
+                    mAuth.signInWithEmailAndPassword(userEmail, userPassword)
+                            .addOnCompleteListener(this, task -> {
+                                if (task.isSuccessful()) {
+                                    FirebaseUser user = mAuth.getCurrentUser();
 
-                                        // Save login status & email in SharedPreferences
+                                    // Save user login info in SharedPreferences
+                                    SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                                    editor.putBoolean(KEY_IS_LOGGED_IN, true);
+                                    editor.putString("userEmail", userEmail);
+                                    editor.apply();
 
-                                        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-                                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                                        editor.putBoolean(KEY_IS_LOGGED_IN, true);
-                                        editor.putString("userEmail", userEmail);
-                                        editor.apply();
-
-                                        onLoginSuccess();
-                                        updateUI(user);
-                                    } else {
-                                        // If sign in fails, check the exception
-                                        processingcustomDialog.dismiss();
-                                        try {
-                                            throw Objects.requireNonNull(task.getException());
-                                        } catch (FirebaseAuthException e) {
-                                            // User does not exist
-                                            CustomToast customToast = new CustomToast(this);
-                                            customToast.show("Please enter valid detail", R.drawable.icons8_wrong);
-                                        } catch (Exception e) {
-                                            // Incorrect password
-                                            CustomToast customToast = new CustomToast(this);
-                                            customToast.show(e.getMessage(), R.drawable.icons8_wrong);
-                                        }
-                                        updateUI(null);
+                                    onLoginSuccess(); // Navigate to dashboard
+                                    updateUI(user); // Update UI for logged-in user
+                                } else {
+                                    processingcustomDialog.dismiss();
+                                    try {
+                                        throw Objects.requireNonNull(task.getException());
+                                    } catch (FirebaseAuthException e) {
+                                        CustomToast customToast = new CustomToast(this);
+                                        customToast.show("Please enter valid details", R.drawable.icons8_wrong);
+                                    } catch (Exception e) {
+                                        CustomToast customToast = new CustomToast(this);
+                                        customToast.show(e.getMessage(), R.drawable.icons8_wrong);
                                     }
-                                });
-
-
-                    } else {
-                        CustomDialog customDialog = new CustomDialog(this);
-                        customDialog.setMessage(getResources().getString(R.string.no_network));
-                        customDialog.setAnimation("no_network_anim.json"); // Name of the animation file in res/raw
-                        customDialog.show();
-                    }
+                                    updateUI(null);
+                                }
+                            });
+                } else {
+                    CustomDialog customDialog = new CustomDialog(this);
+                    customDialog.setMessage(getResources().getString(R.string.no_network));
+                    customDialog.setAnimation("no_network_anim.json"); // No network animation
+                    customDialog.show();
                 }
+            }
         });
 
-
-        // Sign-up redirect button
+        // Redirect to Sign-Up page
         redirectSignUp.setOnClickListener(view -> {
-
             ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, logo_img, "imgShared");
-
             Intent intent = new Intent(SigninActivity.this, SignupActivity.class);
             startActivity(intent, activityOptionsCompat.toBundle());
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            finish();
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left); // Slide animation
+            finish(); // End current activity
         });
     }
 
@@ -196,17 +181,15 @@ public class SigninActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            reload();
+        if (currentUser != null) {
+            reload(); // Reload user data if logged in
         }
     }
 
     private void reload() { }
 
-
-    // Validate Email
+    // Validate Email Input
     public boolean validateEmail() {
         String val = Objects.requireNonNull(emailInput.getText()).toString();
         if (val.isEmpty()) {
@@ -218,7 +201,7 @@ public class SigninActivity extends AppCompatActivity {
         }
     }
 
-    // Validate Password
+    // Validate Password Input
     public boolean validatePassword() {
         String val = Objects.requireNonNull(passwordInput.getText()).toString();
         if (val.isEmpty()) {
@@ -230,7 +213,7 @@ public class SigninActivity extends AppCompatActivity {
         }
     }
 
-    // Handle Google sign-in
+    // Google Sign-In Handler
     private void signIn() {
         Intent signInIntent = googleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -242,32 +225,34 @@ public class SigninActivity extends AppCompatActivity {
 
         if (requestCode == RC_SIGN_IN) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                firebaseAuth(account.getIdToken());
+                firebaseAuth(account.getIdToken()); // Authenticate with Firebase
             } catch (Exception e) {
                 CustomToast customToast = new CustomToast(this);
                 customToast.show(e.getMessage(), R.drawable.icons8_wrong);
             }
-
         }
     }
 
+    // Firebase Authentication for Google Sign-In
     private void firebaseAuth(String idToken) {
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         firebaseAuth.signInWithCredential(credential)
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         FirebaseUser user = firebaseAuth.getCurrentUser();
+
+                        // Save user info to Firebase Database
                         HashMap<String, Object> map = new HashMap<>();
                         assert user != null;
-                        String emailKey = Objects.requireNonNull(user.getEmail()).replace(".", ",");  // Replacing '.' with ',' for Firebase key
+                        String emailKey = Objects.requireNonNull(user.getEmail()).replace(".", ",");
                         map.put("email", user.getEmail());
                         map.put("name", user.getDisplayName());
                         map.put("profile", Objects.requireNonNull(user.getPhotoUrl()).toString());
                         firebaseDatabase.getReference().child("users").child(emailKey).setValue(map);
 
+                        // Save user login info in SharedPreferences
                         SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putBoolean(KEY_IS_LOGGED_IN, true);
@@ -275,10 +260,8 @@ public class SigninActivity extends AppCompatActivity {
                         editor.putString("userEmail", user.getEmail());
                         editor.apply();
 
-                        onLoginSuccess();
-                    }
-
-                    else {
+                        onLoginSuccess(); // Navigate to dashboard
+                    } else {
                         CustomToast customToast = new CustomToast(SigninActivity.this);
                         customToast.show("Something went wrong!", R.drawable.icons8_wrong);
                     }
@@ -286,26 +269,23 @@ public class SigninActivity extends AppCompatActivity {
     }
 
     private void onLoginSuccess() {
-        // Redirect to Dashboard
         Intent intent = new Intent(SigninActivity.this, DashBoardActivity.class);
-        startActivity(intent);
-        finish();
+        startActivity(intent); // Navigate to dashboard
+        finish(); // End current activity
     }
 
-
-    // Back button handling
+    // Handle back button presses
     public void onBackPressed() {
         if (isBackPressedOnce) {
-            super.onBackPressed(); // exit the app
+            super.onBackPressed(); // Exit the app
             return;
         }
 
         this.isBackPressedOnce = true;
         CustomToast customToast = new CustomToast(this);
-        customToast.show("Press again to exit  ", R.drawable.logout_2_svgrepo_com);
+        customToast.show("Press again to exit", R.drawable.logout_2_svgrepo_com);
 
-        // Reset the flag after the delay
+        // Reset flag after delay
         handler.postDelayed(() -> isBackPressedOnce = false, DOUBLE_TAP_DELAY);
     }
-
 }
