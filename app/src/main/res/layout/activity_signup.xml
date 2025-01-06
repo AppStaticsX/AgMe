@@ -7,21 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".SigninActivity">
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.9"
-        android:contentDescription="@string/contentDescription"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_vector" />
-
     <RelativeLayout
         android:id="@+id/main"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SigninActivity">
+        tools:context=".SigninActivity"
+        tools:ignore="UselessParent">
 
     <ImageView
         android:id="@+id/logo_img"
@@ -63,8 +55,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/login_description"
             android:layout_marginHorizontal="30dp"
-            android:text="Create your Account &amp; keep connected"
             android:fontFamily="@font/poppins_regular"
+            android:text="Create your Account &amp; keep connected"
             android:textStyle="bold"
             android:textColor="@color/primary_color"
             android:textSize="14sp"
@@ -111,7 +103,6 @@
                     android:hint="@string/profession_NEW"
                     android:paddingStart="45dp"
                     android:paddingVertical="13dp"
-                    android:fontFamily="@font/poppins_regular"
                     android:drawablePadding="5dp"
                     android:textColor="@color/textColor"
                     android:inputType="none"
@@ -148,7 +139,6 @@
                     android:inputType="text"
                     android:hint="@string/enter_username"
                     android:paddingVertical="13dp"
-                    android:fontFamily="@font/poppins_regular"
                     android:drawableStart="@drawable/profile_svgrepo_com"
                     android:drawablePadding="5dp"
                     android:maxLines="1"
@@ -186,7 +176,6 @@
                     android:hint="@string/enter_your_email"
                     android:paddingVertical="13dp"
                     android:inputType="textEmailAddress"
-                    android:fontFamily="@font/poppins_regular"
                     android:drawableStart="@drawable/sms_svgrepo_com"
                     android:drawablePadding="5dp"
                     android:maxLines="1"
@@ -222,7 +211,6 @@
                     android:hint="@string/enter_your_password"
                     android:paddingVertical="13dp"
                     android:inputType="textPassword"
-                    android:fontFamily="@font/poppins_regular"
                     android:drawableStart="@drawable/lock_svgrepo_com"
                     android:drawablePadding="5dp"
                     android:maxLines="1"
@@ -309,7 +297,7 @@
                     android:layout_height="60dp"
                     app:rippleColor="@color/text_color_grey"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="15dp"
                     android:text="@string/sign_up"
                     android:fontFamily="@font/josefinsans_bold"
                     android:textSize="18sp"
@@ -337,7 +325,6 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -349,7 +336,6 @@
                     android:textSize="14sp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>

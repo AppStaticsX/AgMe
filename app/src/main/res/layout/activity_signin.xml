@@ -7,21 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".SigninActivity">
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.9"
-        android:contentDescription="@string/contentDescription"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background_vector" />
-
     <RelativeLayout
         android:id="@+id/main"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SigninActivity">
+        tools:context=".SigninActivity"
+        tools:ignore="UselessParent">
 
         <ImageView
             android:id="@+id/logo_img"
@@ -64,8 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:id="@+id/login_description"
-                android:text="Continue with Google or enter your details"
                 android:fontFamily="@font/poppins_regular"
+                android:text="Continue with Google or enter your details"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="13sp"
@@ -162,7 +154,6 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/sms_svgrepo_com"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/poppins_regular"
                     android:hint="@string/enter_your_email"
                     android:textColorHint="@color/black"
                     android:inputType="textEmailAddress"
@@ -203,7 +194,6 @@
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/lock_svgrepo_com"
                     android:drawablePadding="5dp"
-                    android:fontFamily="@font/poppins_regular"
                     android:hint="@string/enter_your_password"
                     android:inputType="textPassword"
                     android:maxLines="1"
@@ -259,7 +249,6 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -269,9 +258,9 @@
                     android:id="@+id/signUpTV"
                     android:text="Create Account"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="5dp"
-                    android:fontFamily="@font/poppins_medium"
                     tools:ignore="HardcodedText" />
 
             </LinearLayout>
