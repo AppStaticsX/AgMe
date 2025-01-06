@@ -10,19 +10,6 @@ Ensure you have the following installed on your system before proceeding:
 2. Java Development Kit (JDK) version 11 or above
 3. Git (optional, for cloning the repository)
 
-## Steps to Run the Project
-
-Follow these steps to set up and run the project in Android Studio:
-
-### 1. Clone the Repository
-Use Git to clone the repository to your local machine, or download the project as a ZIP file.
-
-bash
-git clone https://github.com/AppstaticsX/AgMe.git
-
-
-
-
 ## If you downloaded the ZIP file:
 1. Extract it to a desired location on your computer.
 2. Note the extracted folder's location.
